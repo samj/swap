@@ -96,7 +96,7 @@ func scanroot(root string) string {
 	}
 	err := filepath.Walk(root, visit)
 */
-	return(`{"version": 1, "workloads": [ {"name": "tinycore", "title": "Tiny Core Linux", "components": [ { "label": "root", "file": "tinycore.vmdk" } ] } ]}`
+	return(`{"version": 1, "workloads": [ {"name": "tinycore", "title": "Tiny Core Linux", "components": [ { "label": "root", "file": "tinycore.vmdk" } ] } ]}`)
 }
 
 func goserve(port int, root string) {
