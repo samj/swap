@@ -1,0 +1,39 @@
+{
+	"version": 1,
+	"workloads": [
+		{
+			"name": "tinycore",
+			"title": "TinyCore Linux",
+			"components": [
+				{
+					"label": "root",
+					"file": "tinycore.vmdk"
+				}
+			]
+		},
+		{
+			"name": "windows",
+			"title": "Windows Server 2012 R2",
+			"components": [
+				{
+					"label": "system",
+					"file": "windows.vhd"
+				}
+			]
+		},
+		{
+			"name": "debian",
+			"title": "Debian GNU/Linux",
+			"components": [
+				{
+					"label": "root",
+					"file": "debian.vmdk"
+				},
+				{
+					"label": "home",
+					"file": "home.vmdk"
+				}
+			]
+		}
+	]
+}
