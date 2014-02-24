@@ -7,6 +7,8 @@ import (
 //    "log"
 	"net/http"
     "os"
+//	"path/filepath"
+	"strconv"
 )
 
 func main() {
@@ -35,7 +37,7 @@ func main() {
 		
 	case "parse":
 		host := os.Args[1:][1]
-		r := goget(host + "/manifest")
+		r := goget(host + "/manifest.json")
 		dec := json.NewDecoder(r.Body)
 		dec.Decode(&manifest)
 		
@@ -55,7 +57,7 @@ func main() {
 		r.Body.Close()
 		
 	case "server":
-		
+		goserve(8080, "/tmp")
 	case "version":
 		host := os.Args[1:][1]
 		r := goget(host + "/version")
@@ -86,4 +88,26 @@ func goget(url string) *http.Response {
 //        os.Exit(1)
 //    }
 //    return string(body)
+}
+
+func scanroot(root string) string {	
+/*	func visit(path string, f os.FileInfo, err error) error {
+		// look for VMs
+	}
+	err := filepath.Walk(root, visit)
+*/
+	return(`{"version": 1, "workloads": [ {"name": "tinycore", "title": "Tiny Core Linux", "components": [ { "label": "root", "file": "tinycore.vmdk" } ] } ]}`
+}
+
+func goserve(port int, root string) {
+	manifestjson := scanroot(root)
+	
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, "Hello, World!")})
+	http.HandleFunc("/manifest.json", func(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, manifestjson)})
+	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, "swap-0.1")})
+	
+//	if err:= http.ListenAndServe(":" + strconv.Itoa(port), nil); err != nil {
+	if err:= http.ListenAndServe(":8080", nil); err != nil {
+		fmt.Printf("ListenAndServe error: %v\n", err)
+	}
 }
