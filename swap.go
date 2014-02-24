@@ -17,7 +17,10 @@ func main() {
         Workloads []struct {
             Name              string
             Title             string
-            Root              string
+            Components        []struct {
+            	Label         string
+				File          string
+            }
         }
     }
 	
@@ -35,8 +38,13 @@ func main() {
 		dec := json.NewDecoder(r.Body)
 		dec.Decode(&manifest)
 		
-		for _, item := range manifest.Workloads {
-			fmt.Printf("%s (%s): %s\n", item.Title, item.Name, item.Root)
+		for _, w := range manifest.Workloads {
+//			fmt.Printf("%s (%s): [%s]%s\n", w.Title, w.Name, w.Components[0].Label, w.Components[0]].File)
+			fmt.Printf("%s (%s)", w.Title, w.Name)
+			for _, c := range w.Components {
+				fmt.Printf(" [%s]%s", c.Label, c.File)
+			}
+			fmt.Printf("\n")
 		}
 		
 	case "discover":
