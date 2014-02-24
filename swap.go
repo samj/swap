@@ -20,6 +20,7 @@ func main() {
             Components        []struct {
             	Label         string
 				File          string
+				Checksum      string
             }
         }
     }
