@@ -106,8 +106,7 @@ func goserve(port int, root string) {
 	http.HandleFunc("/manifest.json", func(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, manifestjson)})
 	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) { fmt.Fprintln(w, "swap-0.1")})
 	
-//	if err:= http.ListenAndServe(":" + strconv.Itoa(port), nil); err != nil {
-	if err:= http.ListenAndServe(":8080", nil); err != nil {
+	if err:= http.ListenAndServe(":" + strconv.Itoa(port), nil); err != nil {
 		fmt.Printf("ListenAndServe error: %v\n", err)
 	}
 }
