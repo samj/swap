@@ -40,7 +40,6 @@ func main() {
 		dec.Decode(&manifest)
 		
 		for _, w := range manifest.Workloads {
-//			fmt.Printf("%s (%s): [%s]%s\n", w.Title, w.Name, w.Components[0].Label, w.Components[0]].File)
 			fmt.Printf("%s (%s)", w.Title, w.Name)
 			for _, c := range w.Components {
 				fmt.Printf(" [%s]%s", c.Label, c.File)
@@ -64,25 +63,6 @@ func main() {
 		fmt.Printf(string(body))
 		r.Body.Close()
 	}
-/*	
-    dec := json.NewDecoder(os.Stdin)
-    enc := json.NewEncoder(os.Stdout)
-    for {
-        var v map[string]interface{}
-        if err := dec.Decode(&v); err != nil {
-            log.Println(err)
-            return
-        }
-        for k := range v {
-            if k != "workloads" {
-                delete(v, k)
-            }
-        }
-        if err := enc.Encode(&v); err != nil {
-            log.Println(err)
-        }
-    }
-*/
 }
 
 func goget(url string) *http.Response {
